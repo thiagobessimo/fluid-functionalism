@@ -156,6 +156,9 @@ function ComparePageInner() {
               <Link href="/docs">
                 <Button variant="primary" size="sm">Learn more</Button>
               </Link>
+              <Link href="/demo">
+                <Button variant="tertiary" size="sm">See demo</Button>
+              </Link>
             </div>
           </div>
           <div className="flex items-center gap-1 shrink-0">

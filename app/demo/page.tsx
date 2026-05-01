@@ -164,6 +164,9 @@ function DemoPageInner() {
               <Link href="/docs">
                 <Button variant="primary" size="sm">Learn more</Button>
               </Link>
+              <Link href="/compare">
+                <Button variant="tertiary" size="sm">Compare</Button>
+              </Link>
             </div>
           </div>
           <div className="flex items-center gap-1 shrink-0">

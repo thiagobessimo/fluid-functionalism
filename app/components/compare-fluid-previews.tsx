@@ -7,8 +7,10 @@
  * (matched button heights, two badge variants, etc).
  */
 
+import { useState } from "react";
 import { Badge } from "@/registry/default/badge";
 import { Button } from "@/registry/default/button";
+import { InputGroup, InputField } from "@/registry/default/input-group";
 
 function ButtonPreview() {
   // size="lg" → h-9 / text-[14px], matching shadcn's size="sm" (h-9 / text-sm)
@@ -39,7 +41,41 @@ function BadgePreview() {
   );
 }
 
+function InputGroupPreview() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [website, setWebsite] = useState("");
+  return (
+    <div className="w-full max-w-[320px]">
+      <InputGroup>
+        <InputField
+          index={0}
+          label="Name"
+          placeholder="Your name"
+          value={name}
+          onChange={setName}
+        />
+        <InputField
+          index={1}
+          label="Email"
+          placeholder="you@example.com"
+          value={email}
+          onChange={setEmail}
+        />
+        <InputField
+          index={2}
+          label="Website"
+          placeholder="fluidfunctionalism.com"
+          value={website}
+          onChange={setWebsite}
+        />
+      </InputGroup>
+    </div>
+  );
+}
+
 export const compareFluidPreviewMap: Record<string, React.FC> = {
   button: ButtonPreview,
   badge: BadgePreview,
+  "input-group": InputGroupPreview,
 };

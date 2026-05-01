@@ -217,7 +217,6 @@ function InputGroupPreview() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [website, setWebsite] = useState("");
-  const [search, setSearch] = useState("");
   return (
     <div className="w-full max-w-[320px] mx-auto space-y-3">
       <div className="space-y-1.5">
@@ -245,15 +244,6 @@ function InputGroupPreview() {
           placeholder="fluidfunctionalism.com"
           value={website}
           onChange={(e) => setWebsite(e.target.value)}
-        />
-      </div>
-      <div className="space-y-1.5">
-        <Label htmlFor="shadcn-search" className="text-xs">Search</Label>
-        <Input
-          id="shadcn-search"
-          placeholder="Search components..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
         />
       </div>
     </div>
