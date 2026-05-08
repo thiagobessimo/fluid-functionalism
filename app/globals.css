@@ -48,7 +48,7 @@
   --selected: #D4D4D4;
 
   /* Borders */
-  --border: #E5E5E5;
+  --border: color-mix(in oklab, var(--foreground) 12%, transparent);
   --ring: #E5E5E5;
   --input: #E5E5E5;
 
@@ -117,7 +117,7 @@
     --accent-foreground: #F5F5F5;
     --selected: #525252;
 
-    --border: #404040;
+    /* --border inherits from :root (foreground-mix, theme-aware) */
     --ring: #404040;
     --input: #404040;
 
@@ -178,7 +178,7 @@
   --accent-foreground: #F5F5F5;
   --selected: #525252;
 
-  --border: #404040;
+  /* --border inherits from :root (foreground-mix, theme-aware) */
   --ring: #404040;
   --input: #404040;
 
