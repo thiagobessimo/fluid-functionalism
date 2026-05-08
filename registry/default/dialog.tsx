@@ -77,7 +77,7 @@ const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(
           <motion.div
             className={cn(
               "fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)]",
-              "bg-card border border-border/60",
+              "bg-card",
               "shadow-surface-5",
               "p-6 focus:outline-none",
               size === "sm" && "max-w-[400px]",
