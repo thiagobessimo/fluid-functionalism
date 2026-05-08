@@ -5,6 +5,10 @@ import { DocPage, DocSection } from "@/lib/docs/DocPage";
 import { Slider } from "@/registry/default/slider";
 import { fontWeights } from "@/registry/default/lib/font-weight";
 import { useShape } from "@/registry/default/lib/shape-context";
+import { SurfaceProvider } from "@/registry/default/lib/surface-context";
+import { Dropdown } from "@/registry/default/dropdown";
+import { MenuItem } from "@/registry/default/menu-item";
+import { useIcon } from "@/registry/default/lib/icon-context";
 
 const LEVELS = [1, 2, 3, 4, 5, 6, 7, 8] as const;
 
@@ -239,6 +243,7 @@ export default function SurfacesDoc() {
             new substrate to its children, so further nesting walks up the ladder.
           </p>
         </div>
+        <RelativeElevationDemo />
       </DocSection>
 
       <DocSection title="Used by">
@@ -253,6 +258,61 @@ export default function SurfacesDoc() {
         </div>
       </DocSection>
     </DocPage>
+  );
+}
+
+function RelativeElevationDemo() {
+  const shape = useShape();
+  const Star = useIcon("star");
+  const Clock = useIcon("clock");
+  const Lock = useIcon("lock");
+
+  const items = [
+    { icon: Star, label: "Favorites" },
+    { icon: Clock, label: "Recents" },
+    { icon: Lock, label: "Private" },
+  ];
+
+  const renderDropdown = (key: string) => (
+    <Dropdown key={key} className="w-full">
+      {items.map((item, i) => (
+        <MenuItem key={item.label} index={i} icon={item.icon} label={item.label} />
+      ))}
+    </Dropdown>
+  );
+
+  const scenarios: { substrate: number; label: string; rendered: number }[] = [
+    { substrate: 1, label: "Dropdown on the page", rendered: 3 },
+    { substrate: 3, label: "Dropdown inside a popover", rendered: 5 },
+    { substrate: 5, label: "Dropdown inside a Dialog", rendered: 7 },
+  ];
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {scenarios.map(({ substrate, label, rendered }) => (
+        <div key={substrate} className="flex flex-col gap-2">
+          <div className="flex items-baseline justify-between gap-2">
+            <span
+              className="text-[12px] text-foreground"
+              style={{ fontVariationSettings: fontWeights.semibold }}
+            >
+              {label}
+            </span>
+            <span className="text-[10px] text-muted-foreground font-mono">
+              substrate {substrate} → surface {rendered}
+            </span>
+          </div>
+          <div
+            className={`flex items-center justify-center p-6 min-h-[180px] ${shape.container}`}
+            style={{ backgroundColor: `var(--surface-${substrate})` }}
+          >
+            <SurfaceProvider value={substrate}>
+              {renderDropdown(`d-${substrate}`)}
+            </SurfaceProvider>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 }
 
