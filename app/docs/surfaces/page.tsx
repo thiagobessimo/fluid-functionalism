@@ -15,15 +15,15 @@ import { BentoCard } from "@/app/components/bento-card";
 
 const LEVELS = [1, 2, 3, 4, 5, 6, 7, 8] as const;
 
-const ROLES: Record<number, string> = {
-  1: "App background",
-  2: "Sunken / muted",
-  3: "Card",
-  4: "Raised card",
-  5: "Floating panel",
-  6: "Dropdown / menu",
-  7: "Popover",
-  8: "Modal / dialog",
+const FORMULAS: Record<number, string> = {
+  1: "Base layer",
+  2: "Surface 1 + 1px drop",
+  3: "Surface 2 + 3px drop",
+  4: "Surface 3 + 6px drop",
+  5: "Surface 4 + 12px drop",
+  6: "Surface 5 + 24px drop",
+  7: "Surface 6 + 48px drop",
+  8: "Surface 7 + 96px drop",
 };
 
 const ALIASES: Record<number, string | null> = {
@@ -159,18 +159,14 @@ function LadderRow({ level }: { level: number }) {
         aria-hidden
       />
       <div className="flex flex-col gap-1 min-w-0">
-        <div className="flex items-baseline gap-2">
-          <span
-            className="text-[14px] text-foreground"
-            style={{ fontVariationSettings: fontWeights.semibold }}
-          >
-            Surface {level}
-          </span>
-          <span className="text-[12px] text-muted-foreground">— {ROLES[level]}</span>
-        </div>
+        <span
+          className="text-[14px] text-foreground"
+          style={{ fontVariationSettings: fontWeights.semibold }}
+        >
+          Surface {level}
+        </span>
         <div className="flex flex-wrap gap-x-4 gap-y-0.5 text-[11px] text-muted-foreground/80 font-mono">
-          <span>bg-surface-{level}</span>
-          <span>shadow-surface-{level}</span>
+          <span>{FORMULAS[level]}</span>
           {alias && <span className="text-muted-foreground/60">aliased by {alias}</span>}
         </div>
       </div>
