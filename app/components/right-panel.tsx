@@ -23,6 +23,7 @@ import {
   iconLibraryLabels,
   type IconLibrary,
 } from "@/lib/icon-context";
+import { SurfaceProvider } from "@/lib/surface-context";
 import { Tooltip } from "@/registry/default/tooltip";
 
 const REPO = "mickadesign/fluid-functionalism";
@@ -221,13 +222,15 @@ export function SettingsContent({ tooltipSide = "left", hideSocial }: { tooltipS
 export function RightPanel() {
   return (
     <aside className="shrink-0 w-64 p-4 sticky top-4 self-start mt-4 mr-4 rounded-lg bg-muted hidden lg:block">
-      <h2
-        className="text-[16px] text-foreground leading-none pl-1 pt-2 pb-2"
-        style={{ fontVariationSettings: fontWeights.semibold }}
-      >
-        Make them yours
-      </h2>
-      <SettingsContent tooltipSide="left" />
+      <SurfaceProvider value={2}>
+        <h2
+          className="text-[16px] text-foreground leading-none pl-1 pt-2 pb-2"
+          style={{ fontVariationSettings: fontWeights.semibold }}
+        >
+          Make them yours
+        </h2>
+        <SettingsContent tooltipSide="left" />
+      </SurfaceProvider>
     </aside>
   );
 }
