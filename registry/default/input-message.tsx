@@ -868,7 +868,7 @@ const InputMessage = forwardRef<HTMLDivElement, InputMessageProps>(
                         : { opacity: 0, scale: 0.6, transition: { duration: 0.06 } }
                     }
                     transition={springs.fast}
-                    className="inline-flex items-center justify-center align-middle leading-none"
+                    className="flex items-center justify-center leading-none"
                   >
                     {buttonMode === "stop" ? (
                       <span className="h-3 w-3 rounded-[3px] bg-current" />
