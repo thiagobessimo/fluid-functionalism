@@ -287,6 +287,9 @@ export function QueuedChatDemo({
     CARD_H + Math.min(Math.max(stackCount - 1, 0), STACK_MAX_PEEK) * STACK_PEEK;
   const expandedStackH =
     stackCount * CARD_H + Math.max(stackCount - 1, 0) * STACK_GAP;
+  // Collapsed, only the front card + STACK_MAX_PEEK peeks are visible; anything
+  // deeper is hidden. Surface that overflow as a "+N" on the gutter arrow.
+  const hiddenCount = Math.max(0, stackCount - (STACK_MAX_PEEK + 1));
 
   // ── Drag-to-reorder the (expanded) stack. The dragged card follows the
   // pointer; the rest snap to slots; on release it snaps too. Window listeners
@@ -492,6 +495,23 @@ export function QueuedChatDemo({
                   className="absolute bottom-0 left-0 flex items-center justify-center text-muted-foreground"
                   style={{ height: CARD_H, width: 28 }}
                 >
+                  {/* Persistent overflow count, sitting just above the arrow.
+                      Hidden once expanded (every card is then visible). */}
+                  <AnimatePresence>
+                    {!stackExpanded && hiddenCount > 0 && (
+                      <motion.span
+                        key="overflow"
+                        initial={{ opacity: 0, scale: 0.6 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.6 }}
+                        transition={springs.fast}
+                        className="pointer-events-none absolute inset-x-0 text-center text-[10px] font-semibold leading-none tabular-nums text-muted-foreground"
+                        style={{ bottom: CARD_H / 2 + 9 }}
+                      >
+                        +{hiddenCount}
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
                   <CornerDownRightIcon size={16} strokeWidth={2} />
                 </div>
               </Tooltip>
