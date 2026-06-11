@@ -401,7 +401,11 @@ function TableDemo() {
 function HorizontalDemo() {
   const shape = useShape();
   return (
-    <ComponentPreview code={HORIZONTAL_CODE} padding="none">
+    <ComponentPreview
+      code={HORIZONTAL_CODE}
+      padding="none"
+      minHeightClass="min-h-0"
+    >
       <ScrollArea orientation="horizontal" className="w-full">
         <div className="flex gap-2 p-3 w-max">
           {MONTHS.map((month) => (
