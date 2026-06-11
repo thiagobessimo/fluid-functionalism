@@ -10,6 +10,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { useSurface, SurfaceProvider } from "@/lib/surface-context";
 import { surfaceClasses } from "@/lib/surface-classes";
+import { useScrollEdges, ScrollEdgeCue } from "@/lib/scroll-fade";
 
 interface MobileDrawerProps {
   open: boolean;
@@ -37,6 +38,10 @@ export function MobileDrawer({
   const previousFocusRef = useRef<HTMLElement | null>(null);
   const substrate = useSurface();
   const level = Math.min(substrate + 2, 8);
+  // Scroll-edge cues on the panel when the nav overflows. AnimatePresence
+  // mounts the panel in the same commit `open` flips, so the ref is set by
+  // the time the hook's effect runs.
+  const edges = useScrollEdges(panelRef, { enabled: open });
 
   const getFocusableElements = useCallback(() => {
     if (!panelRef.current) return [];
@@ -146,7 +151,11 @@ export function MobileDrawer({
             transition={{ type: "spring", duration: 0.16, bounce: 0 }}
           >
             <SurfaceProvider value={level}>
+              {/* inset matches the panel's p-4 so the gradient spans the
+                  full panel width. */}
+              <ScrollEdgeCue edge="top" visible={edges.top} inset={16} />
               {children}
+              <ScrollEdgeCue edge="bottom" visible={edges.bottom} inset={16} />
             </SurfaceProvider>
           </motion.div>
         </>
