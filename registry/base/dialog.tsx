@@ -9,7 +9,7 @@ import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useIcon } from "@/lib/icon-context";
-import { springs } from "@/lib/springs";
+import { spring } from "@/lib/springs";
 import { useShape } from "@/lib/shape-context";
 import { SurfaceProvider, useSurface } from "@/lib/surface-context";
 import { surfaceClasses } from "@/lib/surface-classes";
@@ -85,7 +85,7 @@ const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(
                 className="fixed inset-0 z-50 bg-black/40 dark:bg-black/80"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: exiting ? 0 : 1 }}
-                transition={exiting ? springs.moderate : springs.slow}
+                transition={exiting ? spring.slow.exit : spring.slow}
               />
             );
           }}
@@ -141,7 +141,7 @@ const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(
                   x: "-50%",
                   y: "-50%",
                 }}
-                transition={exiting ? springs.moderate : springs.slow}
+                transition={exiting ? spring.slow.exit : spring.slow}
               >
                 <SurfaceProvider value={dialogLevel}>
                   {children}

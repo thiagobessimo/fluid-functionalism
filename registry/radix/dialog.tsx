@@ -13,7 +13,7 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useIcon } from "@/lib/icon-context";
-import { springs } from "@/lib/springs";
+import { spring } from "@/lib/springs";
 import { useShape } from "@/lib/shape-context";
 import { SurfaceProvider, useSurface } from "@/lib/surface-context";
 import { surfaceClasses } from "@/lib/surface-classes";
@@ -48,10 +48,16 @@ const DialogClose = DialogPrimitive.Close;
 interface DialogContentProps
   extends ComponentPropsWithoutRef<typeof DialogPrimitive.Content> {
   size?: "sm" | "lg";
+  /** Portal target. When set, the overlay and panel render inside this element
+   *  (positioned `absolute`) instead of covering the viewport (`fixed`). Pair
+   *  with a `position: relative; overflow: hidden` container — and usually
+   *  `<Dialog modal={false}>` — to scope a dialog to a bounded region, e.g. a
+   *  docs preview. Defaults to the document body / full-viewport behaviour. */
+  container?: HTMLElement | null;
 }
 
 const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(
-  ({ className, children, size = "sm", ...props }, ref) => {
+  ({ className, children, size = "sm", container, ...props }, ref) => {
     const XIcon = useIcon("x");
     const open = useContext(DialogOpenContext);
     const shape = useShape();
@@ -70,19 +76,23 @@ const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(
     if (!mounted) return null;
 
     return (
-      <DialogPrimitive.Portal forceMount>
+      <DialogPrimitive.Portal forceMount container={container ?? undefined}>
         <DialogPrimitive.Overlay asChild forceMount>
           <motion.div
-            className="fixed inset-0 z-50 bg-black/40 dark:bg-black/80"
+            className={cn(
+              container ? "absolute" : "fixed",
+              "inset-0 z-50 bg-black/40 dark:bg-black/80"
+            )}
             initial={{ opacity: 0 }}
             animate={{ opacity: open ? 1 : 0 }}
-            transition={open ? springs.slow : springs.moderate}
+            transition={open ? spring.slow : spring.slow.exit}
           />
         </DialogPrimitive.Overlay>
         <DialogPrimitive.Content ref={ref} asChild forceMount {...props}>
           <motion.div
             className={cn(
-              "fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)]",
+              container ? "absolute" : "fixed",
+              "left-1/2 top-1/2 z-50 w-[calc(100%-2rem)]",
               surfaceClasses(dialogLevel),
               "p-6 focus:outline-none",
               size === "sm" && "max-w-[400px]",
@@ -97,7 +107,7 @@ const DialogContent = forwardRef<HTMLDivElement, DialogContentProps>(
               x: "-50%",
               y: "-50%",
             }}
-            transition={open ? springs.slow : springs.moderate}
+            transition={open ? spring.slow : spring.slow.exit}
             onAnimationComplete={handleExitComplete}
           >
             <SurfaceProvider value={dialogLevel}>

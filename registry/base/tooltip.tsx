@@ -9,7 +9,7 @@ import {
 import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { springs } from "@/lib/springs";
+import { spring } from "@/lib/springs";
 import { fontWeights } from "@/lib/font-weight";
 import { useShape } from "@/lib/shape-context";
 
@@ -139,7 +139,7 @@ function Tooltip({
                         ? { opacity: 0, ...slideOffset }
                         : { opacity: 1, x: 0, y: 0 }
                     }
-                    transition={exiting ? { duration: 0.1 } : springs.fast}
+                    transition={exiting ? { duration: 0.1 } : spring.fast}
                   />
                 );
               }}

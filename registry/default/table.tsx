@@ -13,7 +13,7 @@ import {
 } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { springs } from "@/lib/springs";
+import { spring } from "@/lib/springs";
 import { fontWeights } from "@/lib/font-weight";
 import { useProximityHover } from "@/hooks/use-proximity-hover";
 
@@ -80,9 +80,9 @@ const Table = forwardRef<HTMLTableElement, TableProps>(
                   width: activeRect.width,
                   height: activeRect.height,
                 }}
-                exit={{ opacity: 0, transition: { duration: 0.06 } }}
+                exit={{ opacity: 0, transition: spring.fast.exit }}
                 transition={{
-                  ...springs.fast,
+                  ...spring.fast,
                   opacity: { duration: 0.08 },
                 }}
               />

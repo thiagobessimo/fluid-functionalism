@@ -1,1 +1,1 @@
-export { springs } from "@/registry/default/lib/springs";
+export { spring } from "@/registry/default/lib/springs";

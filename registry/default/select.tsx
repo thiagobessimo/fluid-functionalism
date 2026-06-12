@@ -16,7 +16,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cva, type VariantProps } from "class-variance-authority";
 import type { IconComponent } from "@/lib/icon-context";
 import { cn } from "@/lib/utils";
-import { springs } from "@/lib/springs";
+import { spring } from "@/lib/springs";
 import { useProximityHover } from "@/hooks/use-proximity-hover";
 import { useShape } from "@/lib/shape-context";
 import { useScrollEdges, ScrollEdgeCue } from "@/lib/scroll-fade";
@@ -434,7 +434,7 @@ const SelectContent = forwardRef<HTMLDivElement, SelectContentProps>(
           <motion.div
             initial={{ opacity: 0, y: -4, scaleY: 0.96 }}
             animate={{ opacity: 1, y: 0, scaleY: 1 }}
-            transition={springs.fast}
+            transition={spring.fast}
             style={{ transformOrigin: "top center" }}
           >
           <Elevated
@@ -497,9 +497,9 @@ const SelectContent = forwardRef<HTMLDivElement, SelectContentProps>(
                     height: checkedRect.height,
                     opacity: isHoveringOther ? 0.8 : 1,
                   }}
-                  exit={{ opacity: 0, transition: { duration: 0.12 } }}
+                  exit={{ opacity: 0, transition: spring.moderate.exit }}
                   transition={{
-                    ...springs.moderate,
+                    ...spring.moderate,
                     opacity: { duration: 0.08 },
                   }}
                 />
@@ -526,9 +526,9 @@ const SelectContent = forwardRef<HTMLDivElement, SelectContentProps>(
                     width: activeRect.width,
                     height: activeRect.height,
                   }}
-                  exit={{ opacity: 0, transition: { duration: 0.06 } }}
+                  exit={{ opacity: 0, transition: spring.fast.exit }}
                   transition={{
-                    ...springs.fast,
+                    ...spring.fast,
                     opacity: { duration: 0.08 },
                   }}
                 />
@@ -547,9 +547,9 @@ const SelectContent = forwardRef<HTMLDivElement, SelectContentProps>(
                     width: focusRect.width + 4,
                     height: focusRect.height + 4,
                   }}
-                  exit={{ opacity: 0, transition: { duration: 0.06 } }}
+                  exit={{ opacity: 0, transition: spring.fast.exit }}
                   transition={{
-                    ...springs.fast,
+                    ...spring.fast,
                     opacity: { duration: 0.08 },
                   }}
                 />

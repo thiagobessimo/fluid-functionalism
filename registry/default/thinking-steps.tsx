@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useIcon } from "@/lib/icon-context";
 import type { IconName } from "@/lib/icon-context";
-import { springs } from "@/lib/springs";
+import { spring } from "@/lib/springs";
 import { fontWeights } from "@/lib/font-weight";
 import { useShape } from "@/lib/shape-context";
 import {
@@ -150,7 +150,7 @@ function ThinkingStep({
         className={cn("relative z-10 overflow-hidden", className)}
         initial={{ height: 0 }}
         animate={{ height: "auto" }}
-        transition={springs.slow}
+        transition={spring.slow}
       >
         {/* Inner: fades content in after space starts opening */}
         <motion.div
@@ -297,7 +297,7 @@ function ThinkingStepSource({ color = "gray", delay = 0, children, className }: 
       initial={{ opacity: 0, scale: 0.85, filter: "blur(4px)" }}
       animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
       transition={{
-        ...springs.moderate,
+        ...spring.moderate,
         delay,
         filter: { duration: 0.12, delay },
       }}

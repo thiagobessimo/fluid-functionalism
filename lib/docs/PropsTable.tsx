@@ -12,6 +12,10 @@ interface PropsTableProps {
 }
 
 export function PropsTable({ props }: PropsTableProps) {
+  // Drop the Default column when nothing has a default (e.g. token references,
+  // or a table where every prop is required) — an all-"—" column is noise.
+  const showDefault = props.some((prop) => prop.default !== undefined);
+
   return (
     <div className="w-full overflow-x-auto">
       <table className="w-full text-[13px] border-collapse">
@@ -29,12 +33,14 @@ export function PropsTable({ props }: PropsTableProps) {
             >
               Type
             </th>
-            <th
-              className="px-3 py-2 text-left text-foreground"
-              style={{ fontVariationSettings: fontWeights.semibold }}
-            >
-              Default
-            </th>
+            {showDefault && (
+              <th
+                className="px-3 py-2 text-left text-foreground"
+                style={{ fontVariationSettings: fontWeights.semibold }}
+              >
+                Default
+              </th>
+            )}
             <th
               className="px-3 py-2 text-left text-foreground"
               style={{ fontVariationSettings: fontWeights.semibold }}
@@ -52,9 +58,11 @@ export function PropsTable({ props }: PropsTableProps) {
               <td className="px-3 py-2 text-muted-foreground font-mono text-[12px]">
                 {prop.type}
               </td>
-              <td className="px-3 py-2 text-muted-foreground font-mono text-[12px]">
-                {prop.default ?? "—"}
-              </td>
+              {showDefault && (
+                <td className="px-3 py-2 text-muted-foreground font-mono text-[12px]">
+                  {prop.default ?? "—"}
+                </td>
+              )}
               <td className="px-3 py-2 text-muted-foreground">
                 {prop.description}
               </td>

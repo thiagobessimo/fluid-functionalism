@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { useIcon } from "@/lib/icon-context";
 import { fontWeights } from "@/lib/font-weight";
 import { useShape } from "@/lib/shape-context";
-import { springs } from "@/lib/springs";
+import { spring } from "@/lib/springs";
 import { Tooltip } from "@/registry/radix/tooltip";
 
 type InputCopyVariant = "icon" | "button";
@@ -88,7 +88,7 @@ const InputCopy = forwardRef<HTMLDivElement, InputCopyProps>(
             initial={{ opacity: 0, scale: 0.6 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
-            transition={springs.fast}
+            transition={spring.fast}
             className="flex items-center justify-center [&_svg]:stroke-[1.5] [&_svg]:transition-[stroke-width] [&_svg]:duration-80 group-hover:[&_svg]:stroke-[2]"
           >
             <svg
@@ -116,7 +116,7 @@ const InputCopy = forwardRef<HTMLDivElement, InputCopyProps>(
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
-            transition={springs.fast}
+            transition={spring.fast}
             className="flex items-center justify-center"
           >
             <CopyIcon size={14} strokeWidth={1.5} className="transition-[stroke-width] duration-80 group-hover:stroke-[2]" />
@@ -141,7 +141,7 @@ const InputCopy = forwardRef<HTMLDivElement, InputCopyProps>(
               initial={{ opacity: 0, scale: 0.6 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
-              transition={springs.fast}
+              transition={spring.fast}
             >
               <span className="flex items-center justify-center">
                 <svg
@@ -176,7 +176,7 @@ const InputCopy = forwardRef<HTMLDivElement, InputCopyProps>(
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
-              transition={springs.fast}
+              transition={spring.fast}
             >
               <span className="flex items-center justify-center">
                 <CopyIcon size={14} strokeWidth={1.5} className="transition-[stroke-width] duration-80 group-hover:stroke-[2]" />

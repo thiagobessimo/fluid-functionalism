@@ -15,7 +15,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
 import { cn } from "@/lib/utils";
 import { useIcon } from "@/lib/icon-context";
-import { springs } from "@/lib/springs";
+import { spring } from "@/lib/springs";
 import { fontWeights } from "@/lib/font-weight";
 import { useProximityHover } from "@/hooks/use-proximity-hover";
 import { useShape } from "@/lib/shape-context";
@@ -365,7 +365,7 @@ const AccordionGroup = forwardRef<HTMLDivElement, AccordionGroupProps>(
                         height: rect.height,
                         opacity: isHoveringNonOpen ? 0.7 : 1,
                       }}
-                      exit={{ opacity: 0, transition: { duration: 0.12 } }}
+                      exit={{ opacity: 0, transition: spring.moderate.exit }}
                       transition={{
                         top: { duration: 0 },
                         left: { duration: 0 },
@@ -397,9 +397,9 @@ const AccordionGroup = forwardRef<HTMLDivElement, AccordionGroupProps>(
                         width: activeRect.width,
                         height: activeRect.height,
                       }}
-                      exit={{ opacity: 0, transition: { duration: 0.06 } }}
+                      exit={{ opacity: 0, transition: spring.fast.exit }}
                       transition={{
-                        ...springs.fast,
+                        ...spring.fast,
                         opacity: { duration: 0.08 },
                       }}
                     />
@@ -418,9 +418,9 @@ const AccordionGroup = forwardRef<HTMLDivElement, AccordionGroupProps>(
                         width: focusRect.width + 4,
                         height: focusRect.height + 4,
                       }}
-                      exit={{ opacity: 0, transition: { duration: 0.06 } }}
+                      exit={{ opacity: 0, transition: spring.fast.exit }}
                       transition={{
-                        ...springs.fast,
+                        ...spring.fast,
                         opacity: { duration: 0.08 },
                       }}
                     />
@@ -652,7 +652,7 @@ const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
                         className={`absolute inset-0 ${shape.bg} bg-accent/20 dark:bg-accent/12 pointer-events-none`}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        exit={{ opacity: 0, transition: { duration: 0.06 } }}
+                        exit={{ opacity: 0, transition: spring.fast.exit }}
                         transition={{ duration: 0.08 }}
                       />
                     )}
@@ -734,7 +734,7 @@ const AccordionTrigger = forwardRef<HTMLButtonElement, AccordionTriggerProps>(
           <motion.span
             className="shrink-0 inline-flex items-center justify-center"
             animate={{ rotate: isOpen ? 90 : 0 }}
-            transition={springs.fast}
+            transition={spring.fast}
           >
             <ChevronRight
               size={16}
@@ -767,7 +767,7 @@ const AccordionTrigger = forwardRef<HTMLButtonElement, AccordionTriggerProps>(
               className={`absolute inset-0 ${shape.bg} bg-hover pointer-events-none`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0, transition: { duration: 0.06 } }}
+              exit={{ opacity: 0, transition: spring.fast.exit }}
               transition={{ duration: 0.08 }}
             />
           )}
@@ -808,7 +808,7 @@ const AccordionContent = forwardRef<HTMLDivElement, AccordionContentProps>(
             exit={{ height: 0 }}
             // bounce: 0 — pure height looks better without overshoot. See
             // comment in radix flavor.
-            transition={{ ...springs.moderate, bounce: 0 }}
+            transition={{ ...spring.moderate, bounce: 0 }}
             onUpdate={() => {
               groupCtx?.remeasure();
             }}

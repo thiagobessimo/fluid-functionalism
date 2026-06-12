@@ -14,6 +14,7 @@ Checklist and conventions for documenting every new component in this project. F
 - [ ] CVA (`class-variance-authority`) for variant/size management if the component has visual variants
 - [ ] Named exports for the component, sub-components, variant helper, and props type
 - [ ] Any text that changes weight on state (selected/checked/active/open) uses the **ghost-span pattern** (see below) — never animate weight on text without reserving its width
+- [ ] Any animation uses a tier from `@/lib/springs` — `spring.<tier>` to enter, `spring.<tier>.exit` to leave (see [motion-guidelines.md](motion-guidelines.md))
 - [ ] Uses `@/` path aliases for all internal imports:
   ```ts
   import { cn } from "@/lib/utils";
@@ -115,6 +116,10 @@ export default function ComponentNameDoc() {
   );
 }
 ```
+
+### 6. Motion System Page (`app/docs/motion/page.tsx`)
+
+If the component animates, add it to the `SPEED_USAGE` array on the Motion page so its "Where each speed shows up" list stays complete, and keep [motion-guidelines.md](motion-guidelines.md) in sync. Pick the spring tier by the component's headline motion (small state flip → `fast`; panel/indicator that travels → `moderate`; surface that takes over the view → `slow`), enter on that tier, and exit one tier faster. See [motion-guidelines.md](motion-guidelines.md) for the full motion checklist.
 
 ---
 

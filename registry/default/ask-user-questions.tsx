@@ -13,7 +13,7 @@ import {
 } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { springs } from "@/lib/springs";
+import { spring } from "@/lib/springs";
 import { fontWeights } from "@/lib/font-weight";
 import { useShape } from "@/lib/shape-context";
 import { useIcon } from "@/lib/icon-context";
@@ -686,7 +686,7 @@ const AskUserQuestions = forwardRef<HTMLDivElement, AskUserQuestionsProps>(
         <motion.div
           animate={{ height: contentHeight }}
           initial={false}
-          transition={springs.slow}
+          transition={spring.slow}
           className="overflow-hidden"
         >
           <div
@@ -751,9 +751,9 @@ const AskUserQuestions = forwardRef<HTMLDivElement, AskUserQuestionsProps>(
                         width: otherRect.width,
                         height: otherRect.height,
                       }}
-                      exit={{ opacity: 0, transition: { duration: 0.08 } }}
+                      exit={{ opacity: 0, transition: spring.fast.exit }}
                       transition={{
-                        ...springs.fast,
+                        ...spring.fast,
                         opacity: { duration: 0.08 },
                       }}
                     />
@@ -786,9 +786,9 @@ const AskUserQuestions = forwardRef<HTMLDivElement, AskUserQuestionsProps>(
                       width: activeRect.width,
                       height: activeRect.height,
                     }}
-                    exit={{ opacity: 0, transition: { duration: 0.06 } }}
+                    exit={{ opacity: 0, transition: spring.fast.exit }}
                     transition={{
-                      ...springs.fast,
+                      ...spring.fast,
                       opacity: { duration: 0.08 },
                     }}
                   />
@@ -830,9 +830,9 @@ const AskUserQuestions = forwardRef<HTMLDivElement, AskUserQuestionsProps>(
                       width: focusRect.width + 4,
                       height: focusRect.height + 4,
                     }}
-                    exit={{ opacity: 0, transition: { duration: 0.06 } }}
+                    exit={{ opacity: 0, transition: spring.fast.exit }}
                     transition={{
-                      ...springs.fast,
+                      ...spring.fast,
                       opacity: { duration: 0.08 },
                     }}
                   />
@@ -1085,7 +1085,7 @@ const AskUserQuestions = forwardRef<HTMLDivElement, AskUserQuestionsProps>(
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.85 }}
                       transition={{
-                        ...springs.fast,
+                        ...spring.fast,
                         opacity: { duration: 0.1 },
                       }}
                     >
@@ -1116,7 +1116,7 @@ const AskUserQuestions = forwardRef<HTMLDivElement, AskUserQuestionsProps>(
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.85 }}
                       transition={{
-                        ...springs.fast,
+                        ...spring.fast,
                         opacity: { duration: 0.1 },
                       }}
                     >
@@ -1142,7 +1142,7 @@ const AskUserQuestions = forwardRef<HTMLDivElement, AskUserQuestionsProps>(
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.85 }}
                       transition={{
-                        ...springs.fast,
+                        ...spring.fast,
                         opacity: { duration: 0.1 },
                       }}
                     >
@@ -1313,10 +1313,10 @@ function Row({
           exit={{
             opacity: 0,
             scale: 0.6,
-            transition: { duration: 0.06 },
+            transition: spring.fast.exit,
           }}
           transition={{
-            ...springs.fast,
+            ...spring.fast,
             opacity: { duration: 0.08 },
           }}
         >

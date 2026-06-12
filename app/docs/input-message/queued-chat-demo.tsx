@@ -15,7 +15,7 @@ import { MenuItem } from "@/registry/default/menu-item";
 import { Tooltip } from "@/registry/radix/tooltip";
 import { useIcon } from "@/lib/icon-context";
 import { useShape } from "@/registry/default/lib/shape-context";
-import { springs } from "@/registry/default/lib/springs";
+import { spring } from "@/registry/default/lib/springs";
 import { ComponentPreview } from "@/lib/docs/ComponentPreview";
 
 // Sonner-style queued stack tuning (see the doc section for the rationale).
@@ -491,7 +491,7 @@ export function QueuedChatDemo({
                   layoutId={`qm-${m.id}`}
                   layout
                   initial={false}
-                  transition={springs.moderate}
+                  transition={spring.moderate}
                 >
                   <motion.span layout className="inline-block align-top">
                     {m.text}
@@ -524,7 +524,7 @@ export function QueuedChatDemo({
                 height: stackExpanded ? expandedStackH : collapsedStackH,
               }}
               exit={{ opacity: 0 }}
-              transition={{ ...springs.moderate, bounce: 0 }}
+              transition={{ ...spring.moderate, bounce: 0 }}
               onMouseEnter={() => setStackHovered(true)}
               onMouseLeave={() => setStackHovered(false)}
             >
@@ -570,7 +570,7 @@ export function QueuedChatDemo({
                           initial={{ opacity: 0, scale: 0.6 }}
                           animate={{ opacity: 1, scale: 1 }}
                           exit={{ opacity: 0, scale: 0.6 }}
-                          transition={springs.fast}
+                          transition={spring.fast}
                           className="pointer-events-none text-[10px] font-semibold leading-none tabular-nums text-muted-foreground"
                         >
                           {stackCount}
@@ -635,7 +635,7 @@ export function QueuedChatDemo({
                         scale: 0.9,
                         transition: { duration: 0.12 },
                       }}
-                      transition={isDragging ? { duration: 0 } : springs.moderate}
+                      transition={isDragging ? { duration: 0 } : spring.moderate}
                       style={{
                         height: CARD_H,
                         transformOrigin: "bottom center",
@@ -788,7 +788,7 @@ export function QueuedChatDemo({
                           initial={{ opacity: 0, y: 4 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 4, transition: { duration: 0.1 } }}
-                          transition={springs.fast}
+                          transition={spring.fast}
                         >
                           <Dropdown>
                             <MenuItem
@@ -838,7 +838,7 @@ export function QueuedChatDemo({
                       initial={{ opacity: 0, y: 4 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 4, transition: { duration: 0.1 } }}
-                      transition={springs.fast}
+                      transition={spring.fast}
                     >
                       <Dropdown checkedIndex={MODELS.indexOf(model)}>
                         {MODELS.map((name, i) => (

@@ -21,7 +21,7 @@ import {
 } from "framer-motion";
 import * as SliderPrimitive from "@radix-ui/react-slider";
 import { cn } from "@/lib/utils";
-import { springs } from "@/lib/springs";
+import { spring } from "@/lib/springs";
 import { fontWeights } from "@/lib/font-weight";
 import { useShape } from "@/lib/shape-context";
 
@@ -274,8 +274,8 @@ function TooltipValue({ value, formatValue, motionX }: TooltipValueProps) {
       }}
       initial={{ opacity: 0, y: 4 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 4, transition: { duration: 0.1 } }}
-      transition={springs.fast}
+      exit={{ opacity: 0, y: 4, transition: spring.fast.exit }}
+      transition={spring.fast}
     >
       <span
         className={cn("text-[12px] text-background tabular-nums whitespace-nowrap bg-foreground px-2 py-1", shape.bg)}
@@ -455,10 +455,10 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
           const mn = minRef.current;
           const mx = maxRef.current;
           const px0 = valueToPixel(v[0], mn, mx, w);
-          animate(motionX0, px0, springs.moderate);
+          animate(motionX0, px0, spring.moderate);
           if (isRange && v[1] !== undefined) {
             const px1 = valueToPixel(v[1], mn, mx, w);
-            animate(motionX1, px1, springs.moderate);
+            animate(motionX1, px1, spring.moderate);
           }
         }
       });
@@ -473,10 +473,10 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
       const tw = trackWidthRef.current;
       if (tw <= 0) return;
       const px0 = valueToPixel(values[0], min, max, tw);
-      animate(motionX0, px0, springs.moderate);
+      animate(motionX0, px0, spring.moderate);
       if (isRange && values[1] !== undefined) {
         const px1 = valueToPixel(values[1], min, max, tw);
-        animate(motionX1, px1, springs.moderate);
+        animate(motionX1, px1, spring.moderate);
       }
     }, [values, min, max, isRange, motionX0, motionX1]);
 
@@ -560,7 +560,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
           activeDragThumb.current
         );
         // Spring-animate thumb to clicked position
-        animate(motionX, finalPx, springs.moderate);
+        animate(motionX, finalPx, spring.moderate);
 
         // Update value
         const finalValue = pixelToValue(
@@ -636,7 +636,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
       const currentPx = motionX.get();
       const snapped = pixelToValue(currentPx, min, max, step, tw);
       const snappedPx = valueToPixel(snapped, min, max, tw);
-      animate(motionX, snappedPx, springs.moderate);
+      animate(motionX, snappedPx, spring.moderate);
     }, [min, max, step, motionX0, motionX1]);
 
     // --- Radix keyboard handler ---
@@ -732,7 +732,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
               width: THUMB_SIZE_REST,
               height: THUMB_SIZE_REST,
             }}
-            transition={springs.fast}
+            transition={spring.fast}
             style={{
               backgroundColor: thumbColor ?? "white",
               boxShadow: "0 1px 2px rgba(0,0,0,0.1)",
@@ -748,7 +748,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
               width: THUMB_SIZE + 4,
               height: THUMB_SIZE + 4,
             }}
-            transition={springs.fast}
+            transition={spring.fast}
           />
         </motion.span>
       );
@@ -878,8 +878,8 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
                   className="absolute -translate-x-1/2 pointer-events-none z-20"
                   initial={{ opacity: 0, y: 4 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 4, transition: { duration: 0.1 } }}
-                  transition={springs.fast}
+                  exit={{ opacity: 0, y: 4, transition: spring.fast.exit }}
+                  transition={spring.fast}
                   style={{
                     left: hoverPreview.cursorX,
                     top: -20,
@@ -903,7 +903,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
                 height: TRACK_BG_HEIGHT,
                 top: 8 + (THUMB_SIZE - TRACK_BG_HEIGHT) / 2,
               }}
-              transition={springs.fast}
+              transition={spring.fast}
               style={{
                 left: TRACK_INSET,
                 right: TRACK_INSET,
@@ -974,7 +974,7 @@ const Slider = forwardRef<HTMLDivElement, SliderProps>(
                         width: isHovered ? DOT_SIZE * 1.25 : DOT_SIZE,
                         height: isHovered ? DOT_SIZE * 1.25 : DOT_SIZE,
                       }}
-                      transition={springs.moderate}
+                      transition={spring.moderate}
                       style={{
                         backgroundColor: "var(--muted-foreground)",
                         opacity: 0.3,
@@ -1168,8 +1168,8 @@ const SliderComfortable = forwardRef<HTMLDivElement, SliderComfortableProps>(
     useEffect(() => {
       if (dragging.current || handleDragging.current) return;
       const percent = max === min ? 0 : Math.max(0, Math.min(1, (value - min) / (max - min)));
-      animate(fillPercent, percent, springs.fast);
-      animate(zeroOffset, value === min ? zeroTarget : 0, springs.fast);
+      animate(fillPercent, percent, spring.fast);
+      animate(zeroOffset, value === min ? zeroTarget : 0, spring.fast);
     }, [value, min, max, variant, fillPercent, zeroOffset, zeroTarget]);
 
     const getValueFromX = useCallback(
@@ -1204,8 +1204,8 @@ const SliderComfortable = forwardRef<HTMLDivElement, SliderComfortableProps>(
         const newVal = getValueFromX(e.clientX);
         onChange(newVal);
         const newPercent = Math.max(0, Math.min(1, (newVal - min) / (max - min)));
-        animate(fillPercent, newPercent, springs.fast);
-        animate(zeroOffset, newVal === min ? zeroTarget : 0, springs.fast);
+        animate(fillPercent, newPercent, spring.fast);
+        animate(zeroOffset, newVal === min ? zeroTarget : 0, spring.fast);
         (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
       },
       [disabled, getValueFromX, onChange, fillPercent, zeroOffset, zeroTarget, min, max]
@@ -1220,9 +1220,9 @@ const SliderComfortable = forwardRef<HTMLDivElement, SliderComfortableProps>(
         if (variant === "scrubber") {
           fillPercent.set(newPercent);
         } else {
-          animate(fillPercent, newPercent, springs.fast);
+          animate(fillPercent, newPercent, spring.fast);
         }
-        animate(zeroOffset, newVal === min ? zeroTarget : 0, springs.fast);
+        animate(zeroOffset, newVal === min ? zeroTarget : 0, spring.fast);
       },
       [getValueFromX, onChange, variant, fillPercent, zeroOffset, zeroTarget, min, max]
     );
@@ -1245,7 +1245,7 @@ const SliderComfortable = forwardRef<HTMLDivElement, SliderComfortableProps>(
         const newVal = getValueFromX(e.clientX);
         onChange(newVal);
         fillPercent.set(Math.max(0, Math.min(1, (newVal - min) / (max - min))));
-        animate(zeroOffset, newVal === min ? zeroTarget : 0, springs.fast);
+        animate(zeroOffset, newVal === min ? zeroTarget : 0, spring.fast);
         (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
       },
       [disabled, getValueFromX, onChange, fillPercent, zeroOffset, zeroTarget, min, max]
@@ -1257,7 +1257,7 @@ const SliderComfortable = forwardRef<HTMLDivElement, SliderComfortableProps>(
         const newVal = getValueFromX(e.clientX);
         onChange(newVal);
         fillPercent.set(Math.max(0, Math.min(1, (newVal - min) / (max - min))));
-        animate(zeroOffset, newVal === min ? zeroTarget : 0, springs.fast);
+        animate(zeroOffset, newVal === min ? zeroTarget : 0, spring.fast);
       },
       [getValueFromX, onChange, fillPercent, zeroOffset, zeroTarget, min, max]
     );
@@ -1308,8 +1308,8 @@ const SliderComfortable = forwardRef<HTMLDivElement, SliderComfortableProps>(
               className="absolute -translate-x-1/2 pointer-events-none z-20"
               initial={{ opacity: 0, y: 4 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 4, transition: { duration: 0.1 } }}
-              transition={springs.fast}
+              exit={{ opacity: 0, y: 4, transition: spring.fast.exit }}
+              transition={spring.fast}
               style={{
                 left: hoverPreview.cursorX,
                 top: -30,
@@ -1340,7 +1340,7 @@ const SliderComfortable = forwardRef<HTMLDivElement, SliderComfortableProps>(
         animate={{
           outline: isFocused ? "1px solid #6B97FF" : "1px solid transparent",
         }}
-        transition={springs.fast}
+        transition={spring.fast}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
@@ -1404,7 +1404,7 @@ const SliderComfortable = forwardRef<HTMLDivElement, SliderComfortableProps>(
                       backgroundColor: isActivePip ? "var(--foreground)" : "var(--muted-foreground)",
                       opacity: isActivePip ? 1 : 0.3,
                     }}
-                    transition={springs.fast}
+                    transition={spring.fast}
                     style={{ width: PIP_SIZE, height: PIP_SIZE }}
                   />
                 </div>
@@ -1455,7 +1455,7 @@ const SliderComfortable = forwardRef<HTMLDivElement, SliderComfortableProps>(
                 ? "color-mix(in srgb, var(--foreground) 50%, transparent)"
                 : "color-mix(in srgb, var(--foreground) 25%, transparent)",
             }}
-            transition={springs.fast}
+            transition={spring.fast}
             style={{
               left: pipsHandleLineLeftStyle,
               width: 2,
@@ -1471,7 +1471,7 @@ const SliderComfortable = forwardRef<HTMLDivElement, SliderComfortableProps>(
                 className="text-[13px] px-2"
                 initial={false}
                 animate={{ color: isActive ? "var(--foreground)" : "var(--muted-foreground)" }}
-                transition={springs.fast}
+                transition={spring.fast}
               >
                 {label}
               </motion.span>
@@ -1480,7 +1480,7 @@ const SliderComfortable = forwardRef<HTMLDivElement, SliderComfortableProps>(
               className="text-[13px] tabular-nums ml-auto px-2"
               initial={false}
               animate={{ color: isActive ? "var(--foreground)" : "var(--muted-foreground)" }}
-              transition={springs.fast}
+              transition={spring.fast}
               style={{ minWidth: `${String(formatValue(max)).length}ch`, textAlign: "right" }}
             >
               {formatValue(value)}
@@ -1513,7 +1513,7 @@ const SliderComfortable = forwardRef<HTMLDivElement, SliderComfortableProps>(
                 ? "color-mix(in srgb, var(--foreground) 50%, transparent)"
                 : "color-mix(in srgb, var(--foreground) 25%, transparent)",
             }}
-            transition={springs.fast}
+            transition={spring.fast}
             style={{
               left: handleLineLeftStyle,
               width: 2,
@@ -1527,7 +1527,7 @@ const SliderComfortable = forwardRef<HTMLDivElement, SliderComfortableProps>(
             className="text-[13px] shrink-0 z-10"
             initial={false}
             animate={{ color: isActive ? "var(--foreground)" : "var(--muted-foreground)" }}
-            transition={springs.fast}
+            transition={spring.fast}
           >
             {label}
           </motion.span>
@@ -1541,7 +1541,7 @@ const SliderComfortable = forwardRef<HTMLDivElement, SliderComfortableProps>(
               className="text-[13px] shrink-0 tabular-nums text-right z-10"
               initial={false}
               animate={{ color: isActive ? "var(--foreground)" : "var(--muted-foreground)" }}
-              transition={springs.fast}
+              transition={spring.fast}
               style={{ minWidth: `${String(formatValue(max)).length}ch` }}
             >
               {formatValue(value)}

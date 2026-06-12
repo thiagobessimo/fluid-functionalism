@@ -13,7 +13,7 @@ import {
 } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { springs } from "@/lib/springs";
+import { spring } from "@/lib/springs";
 import { useProximityHover } from "@/hooks/use-proximity-hover";
 import { useShape } from "@/lib/shape-context";
 
@@ -163,9 +163,9 @@ const NavMenu = forwardRef<HTMLElement, NavMenuProps>(
                   height: activeRouteRect.height,
                   opacity: isHoveringOther ? 0.8 : 1,
                 }}
-                exit={{ opacity: 0, transition: { duration: 0.12 } }}
+                exit={{ opacity: 0, transition: spring.moderate.exit }}
                 transition={{
-                  ...springs.moderate,
+                  ...spring.moderate,
                   opacity: { duration: 0.08 },
                 }}
               />
@@ -192,9 +192,9 @@ const NavMenu = forwardRef<HTMLElement, NavMenuProps>(
                   width: activeRect.width,
                   height: activeRect.height,
                 }}
-                exit={{ opacity: 0, transition: { duration: 0.06 } }}
+                exit={{ opacity: 0, transition: spring.fast.exit }}
                 transition={{
-                  ...springs.fast,
+                  ...spring.fast,
                   opacity: { duration: 0.08 },
                 }}
               />
@@ -213,9 +213,9 @@ const NavMenu = forwardRef<HTMLElement, NavMenuProps>(
                   width: focusRect.width + 4,
                   height: focusRect.height + 4,
                 }}
-                exit={{ opacity: 0, transition: { duration: 0.06 } }}
+                exit={{ opacity: 0, transition: spring.fast.exit }}
                 transition={{
-                  ...springs.fast,
+                  ...spring.fast,
                   opacity: { duration: 0.08 },
                 }}
               />

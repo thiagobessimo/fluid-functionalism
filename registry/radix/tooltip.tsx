@@ -10,7 +10,7 @@ import {
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { springs } from "@/lib/springs";
+import { spring } from "@/lib/springs";
 import { fontWeights } from "@/lib/font-weight";
 import { useShape } from "@/lib/shape-context";
 
@@ -127,7 +127,7 @@ function Tooltip({
                   x: 0,
                   y: 0,
                 }}
-                transition={open ? springs.fast : { duration: 0.1 }}
+                transition={open ? spring.fast : spring.fast.exit}
                 onAnimationComplete={handleExitComplete}
               >
                 {content}

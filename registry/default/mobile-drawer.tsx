@@ -8,6 +8,7 @@ import {
   type RefObject,
 } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { spring } from "@/lib/springs";
 import { useSurface, SurfaceProvider } from "@/lib/surface-context";
 import { surfaceClasses } from "@/lib/surface-classes";
 import { useScrollEdges, ScrollEdgeCue } from "@/lib/scroll-fade";
@@ -126,7 +127,7 @@ export function MobileDrawer({
             className="fixed inset-0 bg-black/20 dark:bg-black/40 z-40"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { duration: 0.12 } }}
+            exit={{ opacity: 0, transition: spring.moderate.exit }}
             transition={{ duration: 0.16 }}
             onClick={onClose}
             aria-hidden="true"
@@ -142,9 +143,9 @@ export function MobileDrawer({
             className={`fixed top-0 left-0 bottom-0 w-64 ${surfaceClasses(level, 3)} z-50 overflow-y-auto p-4`}
             initial={{ x: "-100%" }}
             animate={{ x: 0 }}
-            exit={{ x: "-100%", transition: { duration: 0.12 } }}
+            exit={{ x: "-100%", transition: spring.moderate.exit }}
             // Critically damped spring — same perceived duration as
-            // springs.moderate but bounce: 0, so the panel decelerates
+            // spring.moderate but bounce: 0, so the panel decelerates
             // into x: 0 without overshooting. The previous bounce: 0.15
             // briefly pushed the panel past its rest position, exposing
             // the page background through the gap on the left edge.

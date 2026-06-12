@@ -18,7 +18,7 @@ import {
 import { AnimatePresence, motion, Reorder, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { fontWeights } from "@/lib/font-weight";
-import { springs } from "@/lib/springs";
+import { spring } from "@/lib/springs";
 import { useShape } from "@/lib/shape-context";
 import { useIcon } from "@/lib/icon-context";
 import { surfaceClasses } from "@/lib/surface-classes";
@@ -164,8 +164,8 @@ function FilePreviewTile({ file, onRemove, size }: FilePreviewTileProps) {
       layout
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.06 } }}
-      transition={springs.fast}
+      exit={{ opacity: 0, scale: 0.9, transition: spring.fast.exit }}
+      transition={spring.fast}
       // `cursor-default` opts out of the parent's `cursor-text` so hovering
       // a preview tile doesn't look like it'll land in the textarea.
       className="relative shrink-0 cursor-default group/tile"
@@ -235,9 +235,9 @@ function QueuedRow({
       exit={
         reduceMotion
           ? { opacity: 0 }
-          : { opacity: 0, scale: 0.97, transition: { duration: 0.06 } }
+          : { opacity: 0, scale: 0.97, transition: spring.fast.exit }
       }
-      transition={springs.fast}
+      transition={spring.fast}
       aria-label={`Queued message ${index + 1} of ${total}: ${label}`}
       tabIndex={0}
       onDoubleClick={() => onEdit(item)}
@@ -370,9 +370,9 @@ const InputMessage = forwardRef<HTMLDivElement, InputMessageProps>(
       el.style.height = "auto";
       const computed = getComputedStyle(el);
       const lineHeight = parseFloat(computed.lineHeight);
-      if (Number.isNaN(lineHeight)) return;
-      const min = lineHeight * minRows;
-      const max = lineHeight * maxRows;
+      const measuredLineHeight = Number.isNaN(lineHeight) ? 20 : lineHeight;
+      const min = measuredLineHeight * minRows;
+      const max = measuredLineHeight * maxRows;
       const next = Math.min(Math.max(el.scrollHeight, min), max);
       el.style.height = `${next}px`;
       el.style.overflowY = el.scrollHeight > max ? "auto" : "hidden";
@@ -772,7 +772,7 @@ const InputMessage = forwardRef<HTMLDivElement, InputMessageProps>(
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
-                transition={{ ...springs.moderate, bounce: 0 }}
+                transition={{ ...spring.moderate, bounce: 0 }}
                 className="overflow-hidden"
               >
                 <div className="flex flex-wrap gap-2 pb-1">
@@ -803,7 +803,7 @@ const InputMessage = forwardRef<HTMLDivElement, InputMessageProps>(
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  transition={{ ...springs.moderate, bounce: 0 }}
+                  transition={{ ...spring.moderate, bounce: 0 }}
                   className="overflow-hidden"
                 >
                   <Reorder.Group
@@ -858,7 +858,7 @@ const InputMessage = forwardRef<HTMLDivElement, InputMessageProps>(
             aria-label={textareaProps?.["aria-label"] ?? "Message"}
             className={cn(
               "w-full resize-none bg-transparent outline-none",
-              "text-[14px] text-foreground placeholder:text-muted-foreground",
+              "text-[14px] leading-5 text-foreground placeholder:text-muted-foreground",
               "px-2 py-2"
             )}
             style={{ fontVariationSettings: fontWeights.normal }}
@@ -888,9 +888,9 @@ const InputMessage = forwardRef<HTMLDivElement, InputMessageProps>(
                     exit={
                       reduceMotion
                         ? { opacity: 0 }
-                        : { opacity: 0, scale: 0.6, transition: { duration: 0.06 } }
+                        : { opacity: 0, scale: 0.6, transition: spring.fast.exit }
                     }
-                    transition={springs.fast}
+                    transition={spring.fast}
                     className="flex items-center justify-center leading-none"
                   >
                     {buttonMode === "stop" ? (

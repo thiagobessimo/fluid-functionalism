@@ -16,7 +16,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { RadioGroup as RadioGroupPrimitive } from "@base-ui/react/radio-group";
 import { Radio as RadioPrimitive } from "@base-ui/react/radio";
 import { cn } from "@/lib/utils";
-import { springs } from "@/lib/springs";
+import { spring } from "@/lib/springs";
 import { fontWeights } from "@/lib/font-weight";
 import { useProximityHover } from "@/hooks/use-proximity-hover";
 import { useShape } from "@/lib/shape-context";
@@ -149,7 +149,7 @@ const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
               opacity: isHoveringOther ? 0.8 : 1,
             }}
             transition={{
-              ...springs.moderate,
+              ...spring.moderate,
               opacity: { duration: 0.08 },
             }}
           />
@@ -175,9 +175,9 @@ const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
                 width: activeRect.width,
                 height: activeRect.height,
               }}
-              exit={{ opacity: 0, transition: { duration: 0.06 } }}
+              exit={{ opacity: 0, transition: spring.fast.exit }}
               transition={{
-                ...springs.fast,
+                ...spring.fast,
                 opacity: { duration: 0.08 },
               }}
             />
@@ -196,9 +196,9 @@ const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
                 width: focusRect.width + 4,
                 height: focusRect.height + 4,
               }}
-              exit={{ opacity: 0, transition: { duration: 0.06 } }}
+              exit={{ opacity: 0, transition: spring.fast.exit }}
               transition={{
-                ...springs.fast,
+                ...spring.fast,
                 opacity: { duration: 0.08 },
               }}
             />
@@ -344,7 +344,7 @@ const RadioItem = forwardRef<HTMLDivElement, RadioItemProps>(
                 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.3, transition: { duration: 0.04 } }}
-                transition={springs.fast}
+                transition={spring.fast}
               >
                 <div className="w-[8px] h-[8px] rounded-full bg-foreground" />
               </motion.div>

@@ -13,7 +13,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { Checkbox as CheckboxPrimitive } from "@base-ui/react/checkbox";
 import { cn } from "@/lib/utils";
-import { springs } from "@/lib/springs";
+import { spring } from "@/lib/springs";
 import { fontWeights } from "@/lib/font-weight";
 import { useProximityHover } from "@/hooks/use-proximity-hover";
 import { useMergeSplitBlocks, SelectionBackgrounds } from "@/hooks/use-merge-split";
@@ -190,9 +190,9 @@ const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>(
                   width: activeRect.width,
                   height: activeRect.height,
                 }}
-                exit={{ opacity: 0, transition: { duration: 0.06 } }}
+                exit={{ opacity: 0, transition: spring.fast.exit }}
                 transition={{
-                  ...springs.fast,
+                  ...spring.fast,
                   opacity: { duration: 0.08 },
                 }}
               />
@@ -211,9 +211,9 @@ const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>(
                   width: focusRect.width + 4,
                   height: focusRect.height + 4,
                 }}
-                exit={{ opacity: 0, transition: { duration: 0.06 } }}
+                exit={{ opacity: 0, transition: spring.fast.exit }}
                 transition={{
-                  ...springs.fast,
+                  ...spring.fast,
                   opacity: { duration: 0.08 },
                 }}
               />

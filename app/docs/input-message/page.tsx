@@ -34,12 +34,12 @@ const [messages, setMessages] = useState<Msg[]>([]);
 // PDFs render their first page via pdfjs. Both show the × remove button.
 useEffect(() => {
   Promise.all([
-    fetch("/avatar.png")
+    fetch("/micka.png")
       .then((r) => r.blob())
-      .then((b) => new File([b], "avatar.png", { type: "image/png" })),
-    fetch("/design-notes.pdf")
+      .then((b) => new File([b], "micka.png", { type: "image/png" })),
+    fetch("/Receipt-2581-4039-8265.pdf")
       .then((r) => r.blob())
-      .then((b) => new File([b], "design-notes.pdf", { type: "application/pdf" })),
+      .then((b) => new File([b], "Receipt-2581-4039-8265.pdf", { type: "application/pdf" })),
   ]).then(setFiles);
 }, []);
 
@@ -193,7 +193,7 @@ const FileTextIcon = useIcon("square-library");
             initial={{ opacity: 0, y: 4 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 4, transition: { duration: 0.1 } }}
-            transition={springs.fast}
+            transition={spring.fast}
           >
             <Dropdown>
               <MenuItem
@@ -240,7 +240,7 @@ const FileTextIcon = useIcon("square-library");
             initial={{ opacity: 0, y: 4 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 4, transition: { duration: 0.1 } }}
-            transition={springs.fast}
+            transition={spring.fast}
           >
             <Dropdown checkedIndex={MODELS.indexOf(model)}>
               {MODELS.map((name, i) => (
@@ -499,11 +499,11 @@ export default function InputMessageDoc() {
       fetch("/micka.png")
         .then((r) => r.blob())
         .then((b) => new File([b], "micka.png", { type: b.type || "image/png" })),
-      fetch("/design-notes.pdf")
+      fetch("/Receipt-2581-4039-8265.pdf")
         .then((r) => r.blob())
         .then(
           (b) =>
-            new File([b], "design-notes.pdf", {
+            new File([b], "Receipt-2581-4039-8265.pdf", {
               type: b.type || "application/pdf",
             })
         ),

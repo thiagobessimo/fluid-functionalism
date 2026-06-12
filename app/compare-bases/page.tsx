@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 import { useBase, type Base } from "@/lib/base-context";
-import { springs } from "@/registry/default/lib/springs";
+import { spring } from "@/registry/default/lib/springs";
 
 import { Button as RadixButton } from "@/registry/radix/button";
 import { Button as BaseButton } from "@/registry/base/button";
@@ -177,7 +177,7 @@ export default function CompareBasesPage() {
             opacity: heroHovered ? 1 : 0,
             y: heroHovered ? 0 : 24,
           }}
-          transition={springs.moderate}
+          transition={spring.moderate}
         >
           or Base UI.
         </motion.p>
@@ -187,7 +187,7 @@ export default function CompareBasesPage() {
             opacity: heroHovered ? 1 : 0,
             y: heroHovered ? 0 : 24,
           }}
-          transition={springs.moderate}
+          transition={spring.moderate}
         >
           <PrimitiveToggle />
         </motion.div>

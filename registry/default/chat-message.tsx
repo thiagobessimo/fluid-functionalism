@@ -3,7 +3,7 @@
 import { forwardRef, type ReactNode } from "react";
 import { motion, type HTMLMotionProps } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { springs } from "@/lib/springs";
+import { spring } from "@/lib/springs";
 import { useShape } from "@/lib/shape-context";
 import { FileThumbnail } from "@/registry/default/file-thumbnail";
 
@@ -47,7 +47,7 @@ const ChatMessage = forwardRef<HTMLDivElement, ChatMessageProps>(
         layout="position"
         initial={{ opacity: 0, y: 8, scale: 0.96 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={springs.moderate}
+        transition={spring.moderate}
         style={{ transformOrigin: isUser ? "bottom right" : "bottom left" }}
         className={cn(
           "group flex max-w-[80%] flex-col gap-1.5",

@@ -11,7 +11,7 @@ import {
 import { motion, useMotionValue, animate } from "framer-motion";
 import { Switch as SwitchPrimitive } from "@base-ui/react/switch";
 import { cn } from "@/lib/utils";
-import { springs } from "@/lib/springs";
+import { spring } from "@/lib/springs";
 
 interface SwitchProps extends HTMLAttributes<HTMLDivElement> {
   label: string;
@@ -68,7 +68,7 @@ const Switch = forwardRef<HTMLDivElement, SwitchProps>(
       if (!hasMounted.current) {
         motionX.set(thumbX);
       } else {
-        animate(motionX, thumbX, springs.moderate);
+        animate(motionX, thumbX, spring.moderate);
       }
     }, [thumbX, motionX]);
 
@@ -130,7 +130,7 @@ const Switch = forwardRef<HTMLDivElement, SwitchProps>(
             const snapTarget = checked
               ? THUMB_OFFSET + THUMB_TRAVEL
               : THUMB_OFFSET;
-            animate(motionX, snapTarget, springs.moderate);
+            animate(motionX, snapTarget, spring.moderate);
           }
 
           requestAnimationFrame(() => {
@@ -216,7 +216,7 @@ const Switch = forwardRef<HTMLDivElement, SwitchProps>(
                     width: thumbWidth,
                     height: thumbHeight,
                   }}
-                  transition={hasMounted.current ? springs.moderate : { duration: 0 }}
+                  transition={hasMounted.current ? spring.moderate : { duration: 0 }}
                 />
               );
             }}

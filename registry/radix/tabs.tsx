@@ -18,7 +18,7 @@ import * as TabsPrimitive from "@radix-ui/react-tabs";
 import { motion, AnimatePresence } from "framer-motion";
 import type { IconComponent } from "@/lib/icon-context";
 import { cn } from "@/lib/utils";
-import { springs } from "@/lib/springs";
+import { spring } from "@/lib/springs";
 import { fontWeights } from "@/lib/font-weight";
 import { useShape } from "@/lib/shape-context";
 import { useSurface } from "@/lib/surface-context";
@@ -307,7 +307,7 @@ const TabsList = forwardRef<HTMLDivElement, TabsListProps>(
                 opacity: isHovering ? 0.85 : 1,
               }}
               transition={{
-                ...springs.moderate,
+                ...spring.moderate,
                 opacity: { duration: 0.08 },
               }}
             />
@@ -344,14 +344,14 @@ const TabsList = forwardRef<HTMLDivElement, TabsListProps>(
                         height: selectedRect.height,
                         opacity: 0,
                         transition: {
-                          ...springs.moderate,
+                          ...spring.moderate,
                           opacity: { duration: 0.06 },
                         },
                       }
-                    : { opacity: 0, transition: { duration: 0.06 } }
+                    : { opacity: 0, transition: spring.fast.exit }
                 }
                 transition={{
-                  ...springs.fast,
+                  ...spring.fast,
                   opacity: { duration: 0.08 },
                 }}
               />
@@ -373,9 +373,9 @@ const TabsList = forwardRef<HTMLDivElement, TabsListProps>(
                   width: focusRect.width + 4,
                   height: focusRect.height + 4,
                 }}
-                exit={{ opacity: 0, transition: { duration: 0.06 } }}
+                exit={{ opacity: 0, transition: spring.fast.exit }}
                 transition={{
-                  ...springs.fast,
+                  ...spring.fast,
                   opacity: { duration: 0.08 },
                 }}
               />
